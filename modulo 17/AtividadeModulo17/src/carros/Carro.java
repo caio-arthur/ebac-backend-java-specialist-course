@@ -55,22 +55,21 @@ public class Carro {
 
     // Método para ligar o carro
     public void ligar() {
-        System.out.println("O carro está ligado.");
+        System.out.println("Ligando o carro " + marca + " " + modelo);
     }
 
     // Método para desligar o carro
     public void desligar() {
-        System.out.println("O carro está desligado.");
+        System.out.println("Desligando o carro " + marca + " " + modelo);
     }
 
     // Método para acelerar
     public void acelerar() {
-        System.out.println("O carro está acelerando.");
+        System.out.println("Acelerando o carro " + marca + " " + modelo);
     }
 
     // Método para frear
     public void frear() {
-        System.out.println("O carro está freando.");
+        System.out.println("Freando o carro " + marca + " " + modelo);
     }
 }
-

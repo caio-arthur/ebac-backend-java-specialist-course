@@ -1,6 +1,5 @@
 package main;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import carros.*;
 
 public class Main {
@@ -22,13 +21,28 @@ public class Main {
         listaCarros.add(forester);
         listaCarros.add(q5);
  
-        imprimirNomesCarros(listaCarros);
+        executarAcoes(listaCarros); // Corrigido para chamar o método executarAcoes
     }
 
-    // Método para imprimir o nome de todos os carros
-    public static void imprimirNomesCarros(List<Carro> carros) {
+    public static void executarAcoes(List<Carro> carros) {
         for (Carro carro : carros) {
-            System.out.println(carro.getMarca() + " " + carro.getModelo());
+            carro.ligar();
+
+            // Executar método específico de acordo com o tipo do carro
+            if (carro instanceof Camionete) {
+                ((Camionete) carro).alterarEstadoCarroceria();
+            } else if (carro instanceof Esportivo) {
+                ((Esportivo) carro).alterarEstadoTetoSolar();
+            } else if (carro instanceof TracaoQuatroRodas) {
+                ((TracaoQuatroRodas) carro).alterarEstadoTracaoQuatroRodas();
+            }
+
+            carro.acelerar();
+            carro.frear();
+
+            carro.desligar();
+
+            System.out.println("=================================");
         }
     }
 }
