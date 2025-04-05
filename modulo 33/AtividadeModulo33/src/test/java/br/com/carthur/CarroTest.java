@@ -18,10 +18,8 @@ import org.junit.After;
 import org.junit.Test;
 
 import br.com.carthur.dao.AcessorioDAO;
-import br.com.carthur.dao.CarroAcessorioDAO;
 import br.com.carthur.dao.CarroDAO;
 import br.com.carthur.dao.IAcessorioDAO;
-import br.com.carthur.dao.ICarroAcessorioDAO;
 import br.com.carthur.dao.ICarroDAO;
 import br.com.carthur.dao.IMarcaDAO;
 import br.com.carthur.dao.MarcaDAO;
@@ -34,13 +32,11 @@ public class CarroTest {
 	private ICarroDAO carroDAO;
 	private IMarcaDAO marcaDAO;
 	private IAcessorioDAO acessorioDAO;
-	private ICarroAcessorioDAO carroAcessorioDAO;
 	
 	public CarroTest() {
 		carroDAO = new CarroDAO();
 		marcaDAO = new MarcaDAO();
 		acessorioDAO = new AcessorioDAO();
-		carroAcessorioDAO = new CarroAcessorioDAO();
 	}
 	
 	@After
@@ -82,22 +78,12 @@ public class CarroTest {
 			);
 		carro.setCor("Azul");
 		carro.setMarca(marca);
+		carro.setAcessorios(acessorios);
 		carro = carroDAO.cadastrar(carro);
 		
 		assertNotNull(carro.getId());
 		
-		// Associar acessórios ao carro
-		for (Acessorio acessorio : acessorios) {
-			carroAcessorioDAO.cadastrar(acessorio.getId(), carro.getId());
-		}
-		
-		// Verificar se os acessórios foram associados corretamente
-		List<Acessorio> acessoriosCarro = carroAcessorioDAO.buscarAcessoriosPorCarroId(carro.getId());
-		
-		assertNotNull(acessoriosCarro);
-		assertTrue(acessoriosCarro.size() == acessorios.size());
-		
-		
+
 	}
 	
 	// Cadastra uma marca

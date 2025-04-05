@@ -1,6 +1,8 @@
 package br.com.carthur.domain;
 
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,6 +22,9 @@ public class Acessorio {
 	
 	@Column(name = "preco", nullable = false)
 	private Double preco;
+	
+	@ManyToMany(mappedBy = "acessorios")
+	private List<Carro> carros;
 
 	public Long getId() {
 		return id;
@@ -52,5 +57,14 @@ public class Acessorio {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
+	
+	public List<Carro> getCarros() {
+		return carros;
+	}
+
+	public void setCarros(List<Carro> carros) {
+		this.carros = carros;
+	}
+
 
 }

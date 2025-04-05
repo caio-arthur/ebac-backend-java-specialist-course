@@ -1,6 +1,7 @@
 package br.com.carthur.domain;
 
 import java.time.Instant;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -30,7 +31,13 @@ public class Carro {
 			foreignKey = @ForeignKey(name = "fk_carro_marca"),
 			referencedColumnName = "id", nullable = false)
 	private Marca marca;
-
+	
+	@ManyToMany
+	@JoinTable(name = "carro_acessorio",
+			joinColumns = @JoinColumn(name = "id_carro_fk", foreignKey = @ForeignKey(name = "fk_carro_acessorio_carro")),
+			inverseJoinColumns = @JoinColumn(name = "id_acessorio_fk", foreignKey = @ForeignKey(name = "fk_carro_acessorio_acessorio")))
+	private List<Acessorio> acessorios;
+	
 	public Long getId() {
 		return id;
 	}
@@ -78,6 +85,15 @@ public class Carro {
 	public void setMarca(Marca marca) {
 		this.marca = marca;
 	}
+
+	public List<Acessorio> getAcessorios() {
+		return acessorios;
+	}
+
+	public void setAcessorios(List<Acessorio> acessorios) {
+		this.acessorios = acessorios;
+	}
+
 	
 	
 	

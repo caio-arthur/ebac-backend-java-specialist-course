@@ -10,7 +10,6 @@
         <!-- Entidade mapeada -->
         <class>br.com.carthur.domain.Carro</class>
         <class>br.com.carthur.domain.Marca</class>
-        <class>br.com.carthur.domain.CarroAcessorio</class>
         <class>br.com.carthur.domain.Acessorio</class>
 
         <properties>
