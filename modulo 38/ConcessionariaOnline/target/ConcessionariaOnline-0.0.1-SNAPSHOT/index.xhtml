@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Concessionária Online</title>
+    <style>
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .menu-container .menu-button {
+            margin: 10px 0;
+            width: 200px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</h:head>
+
+<h:body>
+
+    <div class="menu-container">
+        <h1>Bem-vindo à Concessionária Online</h1>
+
+        <h:form>
+            <p:commandButton value="Marcas" action="#{indexController.goToMarcaPage()}" ajax="false" styleClass="menu-button" />
+            <p:commandButton value="Acessórios" action="#{indexController.goToAcessorioPage()}" ajax="false" styleClass="menu-button" />
+            <p:commandButton value="Carros" action="#{indexController.goToCarroPage()}" ajax="false" styleClass="menu-button" />
+        </h:form>
+    </div>
+
+</h:body>
+</html>

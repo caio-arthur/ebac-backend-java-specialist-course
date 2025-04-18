@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<!-- 1) Captura o parâmetro ?id=1 e executa init() após isso -->
+	<f:metadata>
+		<f:viewParam name="id" value="#{carroAcessorioController.idCarro}" />
+		<f:event listener="#{carroAcessorioController.init}"
+			type="preRenderView" />
+	</f:metadata>
+
+	<h:head>
+		<title>Detalhes do Carro</title>
+	</h:head>
+
+	<h:body>
+		<h:form id="acessorioCarroform">
+			<h3>Acessórios do Carro #{carroAcessorioController.idCarro}</h3>
+
+			<p:dataTable id="acessorioList"
+				value="#{carroAcessorioController.acessorios}" var="acessorio">
+				<p:column headerText="Nome">
+					<h:outputText value="#{acessorio.nome}" />
+				</p:column>
+				<p:column headerText="Descrição">
+					<h:outputText value="#{acessorio.descricao}" />
+				</p:column>
+				<p:column headerText="Preço">
+					<h:outputText value="#{acessorio.preco}" />
+				</p:column>
+				<p:column headerText="Ações">
+					<p:commandButton update="acessorioList" value="Remover"
+						icon="pi pi-trash"
+						action="#{carroAcessorioController.removeAcessorio(acessorio)}">
+						<p:confirm header="Atenção"
+							message="Tem certeza que deseja excluir este acessório?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:messages id="messages" autoUpdate="true" />
+
+			<p:selectOneMenu id="acessorioSelect"
+				value="#{carroAcessorioController.idAcessorio}" required="true">
+				<f:selectItem itemLabel="Selecione..." itemValue="#{null}"
+					noSelectionOption="true" />
+				<f:selectItems value="#{carroAcessorioController.todosAcessorios}"
+					var="acessorio" itemValue="#{acessorio.id}"
+					itemLabel="#{acessorio.nome}" />
+			</p:selectOneMenu>
+
+			<p:commandButton
+				update="@form :acessorioCarroform:acessorioList"
+				id="addAcessorio" value="Adicionar Acessório"
+				action="#{carroAcessorioController.addAcessorio()}" />
+
+			<p:commandLink value="Voltar" onclick="history.back();return false;" />
+		</h:form>
+
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+			responsive="true" width="350">
+			<p:commandButton value="Não" type="button"
+				styleClass="ui-confirmdialog-no ui-button-flat" />
+			<p:commandButton value="Sim" type="button"
+				styleClass="ui-confirmdialog-yes" />
+		</p:confirmDialog>
+	</h:body>
+</f:view>

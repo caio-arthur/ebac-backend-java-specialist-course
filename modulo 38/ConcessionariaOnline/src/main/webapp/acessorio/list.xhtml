@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view>
+    <h:head>
+        <h:outputStylesheet>
+            th, td {
+                text-align: center;
+            }
+            h3 {
+                margin-top: 0;
+                text-align: center;
+            }
+            input[type="text"] {
+                width: 100%;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+            }
+        </h:outputStylesheet>
+        <title>Acessórios</title>
+    </h:head>
+    <h:body>
+        <p:outputPanel>
+            <h3>Acessórios cadastrados</h3>
+            <div class="ui-g">
+                <div class="ui-g-2" />
+                <div class="ui-g-12">
+                    <h:form id="acessoriosForm">
+                        <p:growl id="growl" sticky="true" />
+                        <p:dataTable id="acessorioList" var="acessorio"
+                                     value="#{acessorioController.acessorios}">
+<!--                             <p:column headerText="Id"> -->
+<!--                                 <h:outputText value="#{acessorio.id}" /> -->
+<!--                             </p:column> -->
+                            <p:column headerText="Nome">
+                                <h:outputText value="#{acessorio.nome}" />
+                            </p:column>
+                            <p:column headerText="Preço">
+                                <h:outputText value="#{acessorio.preco}" />
+                            </p:column>
+                            <p:column headerText="Descrição">
+                                <h:outputText value="#{acessorio.descricao}" />
+                            </p:column>
+                            <p:column>
+                                <p:commandButton update="acessorioList add" value="Editar"
+                                                 icon="pi pi-pencil" action="#{acessorioController.edit(acessorio)}" />
+                            </p:column>
+                            <p:column>
+                                <p:commandButton update="acessorioList" value="Excluir"
+                                                 icon="pi pi-trash" action="#{acessorioController.delete(acessorio)}">
+                                    <p:confirm header="Atenção"
+                                               message="Tem certeza que deseja excluir este acessório?"
+                                               icon="pi pi-exclamation-triangle" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+                                         responsive="true" width="350">
+                            <p:commandButton value="Não" type="button"
+                                             styleClass="ui-confirmdialog-no ui-button-flat" />
+                            <p:commandButton value="Sim" type="button"
+                                             styleClass="ui-confirmdialog-yes" />
+                        </p:confirmDialog>
+                    </h:form>
+                </div>
+                <div class="ui-g-2"></div>
+            </div>
+            <h3>Criar novo acessório</h3>
+            <div class="ui-g">
+                <div class="ui-g-2"></div>
+                <div class="ui-g-8">
+                    <h:form id="add">
+                        <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
+                            <p:outputLabel for="nome" value="Nome" />
+                            <p:inputText id="nome" value="#{acessorioController.acessorio.nome}"
+                                         required="true" />
+                            <p:message for="nome" />
+
+                            <p:outputLabel for="descricao" value="Descrição" />
+                            <p:inputTextarea id="descricao"
+                                             value="#{acessorioController.acessorio.descricao}" rows="5" cols="30" />
+                            <p:message for="descricao" />
+
+                            <p:outputLabel for="preco" value="Preço" />
+                            <p:inputText id="preco" value="#{acessorioController.acessorio.preco}"
+                                         required="true" />
+                            <p:message for="preco" />
+
+                            <p:commandLink value="Voltar"
+                                           onclick="history.back(); return false;"
+                                           style="margin-right:20px;" />
+                            <p:commandButton update="@form :acessoriosForm:acessorioList"
+                                             value="Cadastrar" action="#{acessorioController.add}"
+                                             rendered="#{!acessorioController.isUpdate}" />
+                            <p:commandButton update="@form :acessoriosForm:acessorioList"
+                                             value="Atualizar" action="#{acessorioController.update}"
+                                             rendered="#{acessorioController.isUpdate}" />
+                            <p:commandButton update="add" value="Cancelar"
+                                             action="#{acessorioController.cancel}" immediate="true">
+                                <f:ajax render="add" resetValues="true" />
+                            </p:commandButton>
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+                <div class="ui-g-2"></div>
+            </div>
+        </p:outputPanel>
+    </h:body>
+</f:view>
+</html>
