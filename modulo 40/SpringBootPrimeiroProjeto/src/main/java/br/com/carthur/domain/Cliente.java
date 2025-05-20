@@ -7,8 +7,6 @@ import lombok.*;
 @Table(name = "TB_CLIENTE")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class Cliente {
 	
